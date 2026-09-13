@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0a0a0a;
+  --color-surface: #111111;
+  --color-surface-2: #1a1a1a;
+  --color-border: #222222;
+  --color-text-primary: #f5f5f5;
+  --color-text-secondary: #888888;
+  --color-accent: #c4ff00;
+  --color-accent-hover: #d4ff40;
+  
+  --font-space: 'Space Grotesk', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+@layer base {
+  html, body {
+    @apply bg-background text-text-primary font-inter antialiased;
+    scroll-behavior: auto !important; /* Lenis handles smooth scrolling */
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  ::selection {
+    @apply bg-accent text-black;
+  }
+}
+
+/* Only hide the native cursor while CustomCursor is actually mounted and
+   rendering (desktop, fine pointer, motion not reduced). Toggled from
+   CustomCursor.jsx - never hidden unconditionally, so touch/reduced-motion
+   users always keep a visible system cursor. */
+html.custom-cursor-active,
+html.custom-cursor-active * {
+  cursor: none !important;
+}
+
+@layer utilities {
+  .no-scroll {
+    overflow: hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border);
+}
+
+/* Accessibility: Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
